@@ -1,0 +1,32 @@
+/* .auth-main {
+  display: flex;
+  margin-top: 50px;
+  /* width: 50%; */
+/* border: green solid 2px;
+  justify-content: center;
+} */
+.auth-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.auth-container {
+  /* border: green solid 2px; */
+  display: flex;
+  flex-direction: row; /* Align children side by side */
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 230px;
+}
+.auth-form-main {
+  /* border: yellow solid 2px; */
+}
+.wide-input {
+  width: 300px; /* Adjust the width as needed */
+}
+.submit-btn {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
