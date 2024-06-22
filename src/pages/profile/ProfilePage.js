@@ -21,13 +21,13 @@ const ProfilePage = () => {
     return state.user.user;
   });
   const initialValues = {
-    username: user.username || "",
+    userName: user.userName || "",
     email: user.email || "",
     password: "",
   };
 
   const validationSchema = Yup.object({
-    username: Yup.string().required("Username is required"),
+    userName: Yup.string().required("Username is required"),
     email: Yup.string()
       .email("Invalid email format")
       .required("Email is required"),
@@ -38,7 +38,7 @@ const ProfilePage = () => {
 
   const onSubmit = async (values) => {
     console.log("Form data", values, profileImage);
-    let payload = { ...values };
+    let payload = { ...values, oldEmail: user.email, oldPassword: user };
     if (imageFile) {
       payload = { ...payload, file: imageFile };
     }
@@ -88,18 +88,18 @@ const ProfilePage = () => {
           >
             {(formik) => (
               <Form as={BootstrapForm} className="profile-form">
-                <BootstrapForm.Group controlId="username">
+                <BootstrapForm.Group controlId="userName">
                   <BootstrapForm.Label>Username</BootstrapForm.Label>
                   <Field
                     as={BootstrapForm.Control}
                     type="text"
-                    name="username"
+                    name="userName"
                     isInvalid={
-                      !!formik.errors.username && formik.touched.username
+                      !!formik.errors.userName && formik.touched.userName
                     }
                   />
                   <ErrorMessage
-                    name="username"
+                    name="userName"
                     component="div"
                     className="text-danger"
                   />

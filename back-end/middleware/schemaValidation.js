@@ -1,3 +1,6 @@
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
+
 const MyError = require("../models/MyError");
 //const dynamicModule = require("../schema/");
 const Ajv = require("ajv").default;
@@ -42,9 +45,6 @@ const checkSchema = (schemaModule) => {
   };
 };
 
-module.exports = {
-  checkSchema,
-};
 const transformErrors = (errors) => {
   const errorObj = {};
   errors.forEach((err) => {
@@ -53,4 +53,22 @@ const transformErrors = (errors) => {
     errorObj[field] = result;
   });
   return errorObj;
+};
+const verifyToken = (req, res, next) => {
+  const token = req.cookies["Auth_Cookie"];
+  if (!token) {
+    return res.status(401).json({ message: "Auth token is missing" });
+  }
+
+  jwt.verify(token, "my-secret", (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ message: "Token is invalid" });
+    }
+    req.user = decoded; // Add decoded payload to request object
+    next();
+  });
+};
+module.exports = {
+  checkSchema,
+  verifyToken,
 };

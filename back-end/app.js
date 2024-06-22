@@ -5,13 +5,16 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const MyError = require("./models/MyError");
 const userRouter = require("./routes/user-routes");
+const cookieParser = require("cookie-parser");
 
 const corsOptions = {
   origin: "http://localhost:3000", // Replace with your React app's domain
   credentials: true,
 };
 app.use("/uploads/files", express.static(__dirname + "/uploads/files"));
-
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors(corsOptions));
 mongoose.connect("mongodb://localhost:27017/blogs", {

@@ -67,9 +67,39 @@ const login = async (req, res, next) => {
   }
 };
 const updateUser = async (req, res, next) => {
-  console.log(req.files, req.file, "files");
+  console.log("updateUser", req.user);
+  try {
+    const image = req.file;
+    const { email, password, userName } = req.body;
+    console.log(email, password, userName);
+    const userFromDb = await User.findById(req.user.id);
+    if (!userFromDb) {
+      let err = new MyError("User No Found", 500);
+      return next(err);
+    }
+    if (email) {
+      userFromDb.email = email;
+    }
+    if (password) {
+      const hashPassword = await bcrypt.hash(password, 12);
+      userFromDb.password = hashPassword;
+    }
+    if (userName) {
+      userFromDb.userName = userName;
+    }
+    if (image) {
+      userFromDb.profileImage = image.path; // Assuming you're saving the image path
+    }
 
-  return res.json({ status: "ok" });
+    // Save the updated user to the database
+    await userFromDb.save();
+    console.log("userFromDb", userFromDb);
+    return res.json({ status: "ok", userFromDb });
+  } catch (error) {
+    console.log(error);
+    let err = new MyError("Internal Error", 500);
+    return next(err);
+  }
 };
 module.exports = {
   signup,
