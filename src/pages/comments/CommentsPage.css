@@ -1,0 +1,74 @@
+.main-comments {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+}
+
+.comments-div {
+  width: 100%;
+}
+
+.comments-header {
+  display: flex;
+  width: 100%;
+  background-color: #f0f0f0;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.comment-subtitle {
+  flex: 1;
+  text-align: center;
+}
+
+.comment-row {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.comment-data {
+  flex: 1;
+  text-align: center;
+}
+.comment-row {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.comment-data {
+  flex: 1;
+  text-align: center;
+}
+:hover.comment-row {
+  background-color: rgb(239, 239, 178);
+  border-radius: 20px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.delete {
+  color: red;
+  cursor: pointer;
+  height: fit-content;
+}
+:hover.delete {
+  background-color: rgb(233, 228, 231);
+  border-radius: 20px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.edit-field {
+  cursor: pointer;
+  color: green;
+  /* border: black solid 1px; */
+  border-radius: 20px;
+}
+:hover.edit-field {
+  background-color: rgb(233, 228, 231);
+  border-radius: 20px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}

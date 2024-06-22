@@ -56,3 +56,15 @@
   /* margin-right: auto; */
   margin-right: 50px;
 }
+.my-nav-link {
+  cursor: pointer;
+  border-radius: 20px;
+  /* border: #5cb85c solid 2px; */
+}
+:hover.my-nav-link {
+  background-color: #5cb85c;
+  transition: all 1s ease;
+}
+.my-nav {
+  border-bottom: #e8e3e2 1px solid;
+}

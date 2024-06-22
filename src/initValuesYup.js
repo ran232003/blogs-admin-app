@@ -10,14 +10,9 @@ export const authInitValues = (status, values) => {
 };
 
 export const getValidationSchema = (status) => {
-  console.log(status);
   switch (status) {
     case "login":
       return Yup.object().shape({
-        userName: Yup.string()
-          .min(4, "userName to short")
-          .max(30, "userName to long")
-          .required("userName is required"),
         email: Yup.string()
           .email("not valid email")
           .max(50, "max email violated")

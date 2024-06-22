@@ -10,12 +10,20 @@ const AuthForm = (props) => {
     setPageStatus,
     buttonTitle,
     authToggle,
+    useSubmit,
+    pageStatus,
   } = props;
-  const handleSubmit = async (values) => {};
+  console.log(initialValues, validationSchema);
+  const handleSubmit = async (values, { resetForm }) => {
+    console.log(values);
+    props.useSubmit(values);
+    resetForm();
+  };
 
   return (
     <div className="auth-form-main">
       <Formik
+        key={pageStatus}
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
@@ -23,13 +31,14 @@ const AuthForm = (props) => {
         {({ setFieldValue, values, dirty, isValid }) => (
           <Form>
             {formikValues.map((inputObject, index) => {
+              // console.log(values, index);
               return (
                 <div key={index} className="form-group">
                   <label className="lableClass" htmlFor="title">
                     {inputObject.lable}
                   </label>
                   <Field
-                    type="text"
+                    type={inputObject.type}
                     value={values[inputObject.name]}
                     id={inputObject.name}
                     name={inputObject.name}
@@ -44,7 +53,6 @@ const AuthForm = (props) => {
               );
             })}
             <Button
-              onClick={handleSubmit}
               className="submit-btn"
               variant="success"
               type="submit"

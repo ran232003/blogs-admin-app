@@ -1,0 +1,153 @@
+.main-dash {
+  display: flex;
+  height: 100vh; /* Full height of the viewport */
+}
+
+.dashboard-content {
+  display: flex;
+  flex-direction: column; /* Changed to column to stack TotalInfo and rectangles */
+  justify-content: flex-start; /* Aligns items to the start of the container */
+  align-items: center; /* Center align horizontally */
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.total-info-container {
+  display: flex;
+  justify-content: center; /* Center the TotalInfo components horizontally */
+  gap: 20px; /* Adds 20px gap between each TotalInfo component */
+  margin-bottom: 20px; /* Adds space below the TotalInfo components */
+}
+
+.total-info {
+  width: 200px; /* Adjust the width to make them smaller */
+  height: 100px; /* Adjust the height to make them smaller */
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.info-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.info-number {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.rectangles-container {
+  display: flex;
+  width: 100%;
+  justify-content: center; /* Center the rectangles horizontally */
+  gap: 20px; /* Adds space between the rectangles */
+}
+
+.rectangle {
+  min-width: 30%;
+  width: fit-content;
+  min-height: 400px;
+  height: fit-content;
+  background-color: #eaf9fb;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+}
+.rectangle2 {
+  min-width: 50%;
+  width: fit-content;
+  /* height: 400px; */
+  min-height: 400px;
+  height: fit-content;
+  background-color: #eaf9fb;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+}
+.rectangle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rectangle-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.rectangle-button {
+  font-size: 14px;
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.rectangle-subheader {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-weight: bold;
+}
+.rectangle-left-subtitle {
+  flex-basis: 45%; /* Ensures the left subtitle takes up the necessary space */
+  text-align: left; /* Align left */
+}
+
+.rectangle-right-subtitle {
+  flex-basis: 45%; /* Ensures the right subtitle takes up the necessary space */
+  text-align: right; /* Align right */
+}
+.rectangle-content {
+  flex-grow: 1;
+  margin-top: 20px;
+}
+
+.rectangle-list-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  cursor: pointer;
+  padding: 7px;
+}
+:hover.rectangle-list-item {
+  background-color: yellow;
+  border-radius: 20px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.rectangle-right-item {
+  text-align: right; /* Align right for right item */
+}
+
+.rectangle-left-item {
+  flex-basis: 45%; /* Ensures the left items take up equal space */
+  text-align: left; /* Align left for left item */
+}
+.user-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
