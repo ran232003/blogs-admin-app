@@ -10,7 +10,7 @@ const PrivateDashboard = () => {
   if (!user) {
     return <Navigate to="*" />;
   } else {
-    return user.type ? <Outlet /> : <Navigate to="*" />;
+    return user ? <Outlet /> : <Navigate to="*" />;
   }
 };
 

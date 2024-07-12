@@ -13,6 +13,7 @@
   margin-bottom: 20px;
   cursor: pointer; /* Makes the image look clickable */
   object-fit: cover; /* Ensures the image covers the area while maintaining its aspect ratio */
+  border-radius: 20px;
 }
 
 .profile-form {
@@ -60,4 +61,7 @@ button:disabled {
 }
 .profile-image-upload {
   cursor: pointer;
+}
+.myBtn {
+  width: 100%;
 }

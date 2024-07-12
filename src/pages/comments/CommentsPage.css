@@ -41,7 +41,9 @@
   padding: 10px;
   border-bottom: 1px solid #ccc;
 }
-
+.posts {
+  cursor: pointer;
+}
 .comment-data {
   flex: 1;
   text-align: center;

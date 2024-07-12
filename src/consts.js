@@ -1,3 +1,8 @@
+import { DELETE_COMMENT_URL, DELETE_POST_URL, DELETE_USER_URL } from "./URLS";
+import { commentAction } from "./store/commentSlice";
+import { postAction } from "./store/postSlice";
+import { userAction } from "./store/userSlice";
+
 export const homePageTitle = "Welcome to my Blog";
 export const homePageSubTitle =
   "Here you'll find a variety of articles and tutorials on topics such as web development, software engineering, and programming languages.";
@@ -100,28 +105,22 @@ export const postsData = [
     dataUpdated: "22/12/2023",
     postImage: "",
     postTitle: "ran",
-    categoty: "123334",
+    category: "123334",
     edit: "Edit",
   },
 ];
-export const postsFields = [
-  "dataUpdated",
-  "postImage",
-  "postTitle",
-  "categoty",
-  "edit",
-];
+export const postsFields = ["updatedAt", "image", "title", "category", "edit"];
 export const usersFields = [
-  "dataCreated",
-  "userImage",
-  "UserName",
-  "Email",
-  "Admin",
+  "createdAt",
+  "image",
+  "userName",
+  "email",
+  "isAdmin",
 ];
 export const commentsFields = [
-  "dataUpdated",
+  "updatedAt",
   "content",
-  "likes",
+  "numberOfLikes",
   "postId",
   "userId",
 ];
@@ -154,3 +153,15 @@ export const postsPage = [
   "Edit",
   "DELETE",
 ];
+export const urlMap = {
+  comments: DELETE_COMMENT_URL,
+  posts: DELETE_POST_URL,
+  users: DELETE_USER_URL,
+};
+export const actionMapping = {
+  comments: commentAction.setDashBoardComments,
+  users: userAction.setUsers,
+  posts: postAction.setDashBoardPosts,
+  //posts: postAction.setDashBoardposts,
+  // Add other slices and their corresponding actions here
+};

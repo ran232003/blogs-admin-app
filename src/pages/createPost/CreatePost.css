@@ -1,0 +1,31 @@
+.mainCreatePost {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the children horizontally */
+  width: 100%;
+}
+.title-select {
+  display: flex;
+  align-items: center; /* Align items vertically in the center */
+  gap: 10px; /* Space between the input and select elements */
+}
+.main-inputs {
+  width: 50%;
+}
+
+.input-title {
+  width: 70%;
+}
+.form-select {
+  width: 30%;
+}
+.file-input {
+  margin-top: 20px;
+}
+.textBox {
+  height: 50vh;
+}
+.publish-button {
+  margin-top: 50px;
+  width: 100%;
+}

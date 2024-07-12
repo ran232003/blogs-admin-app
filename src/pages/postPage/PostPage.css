@@ -1,0 +1,25 @@
+.main-post-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the children horizontally */
+  width: 100%;
+}
+.post-button {
+  border-radius: 10px;
+  cursor: none;
+  margin-top: 20px;
+}
+.post-image {
+  margin-top: 40px;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+.postImage {
+  width: 40%;
+  height: 20%;
+}
+.post-content {
+  margin-top: 40px;
+  width: 50%;
+}

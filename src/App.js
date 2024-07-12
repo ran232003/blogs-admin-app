@@ -12,6 +12,8 @@ import PrivateDashboard from "./global/PrivateAuth";
 import DashBoard from "./pages/dashboard/DashBoard";
 import ProfilePage from "./pages/profile/ProfilePage";
 import CommentsPage from "./pages/comments/CommentsPage";
+import CreatePost from "./pages/createPost/CreatePost";
+import PostPage from "./pages/postPage/PostPage";
 
 function App() {
   return (
@@ -22,11 +24,13 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<About />} />
         <Route path="/blogs" element={<BlogsPage />} />
+        <Route path="/posts/:postTitle" element={<PostPage />} />
         {/* <Route path="/profile" element={<ProfilePage />} /> */}
 
         <Route path="/auth/:status" element={<Auth />} />
         <Route element={<PrivateDashboard />}>
           <Route path="/dashboard" element={<DashBoard />} />
+          <Route path="/create-post" element={<CreatePost />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

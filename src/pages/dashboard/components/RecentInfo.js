@@ -19,22 +19,22 @@ const RecentInfo = (props) => {
               {leftSubTitle === "userImage" ? (
                 <img
                   className="user-image"
-                  src={item.userImage ? item.userImage : logo}
+                  src={item.image ? item.image : logo}
                   alt="User"
                 />
               ) : (
                 <div>
-                  {item.comment
-                    ? item.comment.length > 60
-                      ? item.comment.substring(0, 59)
-                      : item.comment
+                  {item.content
+                    ? item.content.length > 60
+                      ? item.content.substring(0, 59)
+                      : item.content
                     : "No Comment"}
                 </div>
               )}
             </div>
             <div className="rectangle-right-item">
               {rightSubTitle === "Likes" ? (
-                <div>{item.likes}</div>
+                <div>{item.likes.length}</div>
               ) : (
                 <div>{item.userName}</div>
               )}

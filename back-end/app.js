@@ -5,6 +5,10 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const MyError = require("./models/MyError");
 const userRouter = require("./routes/user-routes");
+const postRouter = require("./routes/post-routes");
+
+const commentRouter = require("./routes/comment-routes");
+
 const cookieParser = require("cookie-parser");
 
 const corsOptions = {
@@ -25,6 +29,9 @@ mongoose.connect("mongodb://localhost:27017/blogs", {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+app.use("/api/blog/posts", postRouter);
+
+app.use("/api/blog/comments", commentRouter);
 app.use("/api/blog/user", userRouter);
 app.use((req, res, next) => {
   let error = new MyError("not able to find page");

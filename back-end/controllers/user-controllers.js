@@ -17,7 +17,7 @@ const signup = async (req, res, next) => {
       email: email,
       password: hashPassword,
       userName: userName,
-      type: "user",
+      isAdmin: false,
     });
     await user.save();
 
@@ -70,6 +70,7 @@ const updateUser = async (req, res, next) => {
   console.log("updateUser", req.user);
   try {
     const image = req.file;
+    let newImage = "http://localhost:5000/" + image.path.replace(/\\/g, "/");
     const { email, password, userName } = req.body;
     console.log(email, password, userName);
     const userFromDb = await User.findById(req.user.id);
@@ -88,7 +89,7 @@ const updateUser = async (req, res, next) => {
       userFromDb.userName = userName;
     }
     if (image) {
-      userFromDb.profileImage = image.path; // Assuming you're saving the image path
+      userFromDb.profileImage = newImage; // Assuming you're saving the image path
     }
 
     // Save the updated user to the database
@@ -101,8 +102,36 @@ const updateUser = async (req, res, next) => {
     return next(err);
   }
 };
+const getUsers = async (req, res, next) => {
+  try {
+    console.log("getUsers");
+    const users = await User.find({});
+    return res.json({ status: "ok", data: users });
+  } catch (error) {
+    console.log(error);
+    let err = new MyError("Internal Error", 500);
+    return next(err);
+  }
+};
+const deleteUser = async (req, res, next) => {
+  try {
+    console.log("deleteUser");
+    const userId = req.params.id;
+
+    const user = await User.deleteOne({ _id: userId });
+    const users = await User.find();
+
+    return res.json({ status: "ok", data: users });
+  } catch (error) {
+    console.log(error);
+    let err = new MyError("Internal Error", 500);
+    return next(err);
+  }
+};
 module.exports = {
   signup,
   login,
   updateUser,
+  getUsers,
+  deleteUser,
 };

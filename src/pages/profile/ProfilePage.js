@@ -12,20 +12,25 @@ import profile from "../../profile.png"; // Use the correct path to your profile
 import { useSelector } from "react-redux";
 import { apiCall } from "../../apiCall";
 import { UPDATE_USER_URL } from "../../URLS";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
-  const [profileImage, setProfileImage] = useState(profile);
-  const [imageFile, setImageFile] = useState(null); // To hold the image file
+  const navigate = useNavigate();
 
   const user = useSelector((state) => {
     return state.user.user;
   });
+  const [profileImage, setProfileImage] = useState(user.image || profile);
+  const [imageFile, setImageFile] = useState(null); // To hold the image file
+
   const initialValues = {
     userName: user.userName || "",
     email: user.email || "",
     password: "",
   };
-
+  const handlePost = () => {
+    navigate("/create-post");
+  };
   const validationSchema = Yup.object({
     userName: Yup.string().required("Username is required"),
     email: Yup.string()
@@ -37,7 +42,7 @@ const ProfilePage = () => {
   });
 
   const onSubmit = async (values) => {
-    console.log("Form data", values, profileImage);
+    // console.log("Form data", values, profileImage);
     let payload = { ...values, oldEmail: user.email, oldPassword: user };
     if (imageFile) {
       payload = { ...payload, file: imageFile };
@@ -71,6 +76,7 @@ const ProfilePage = () => {
                 className="profile-image mb-4"
                 width="150" // Ensure consistent width
                 height="150" // Ensure consistent height
+                style={{ borderRadius: "50%" }}
               />
             </label>
             <input
@@ -137,8 +143,9 @@ const ProfilePage = () => {
                   />
                 </BootstrapForm.Group>
 
-                <div className="text-center mt-3">
+                <div className="text-center mt-3 myBtn">
                   <Button
+                    style={{ width: "100%" }}
                     type="submit"
                     variant="primary"
                     disabled={!formik.isValid}
@@ -146,6 +153,16 @@ const ProfilePage = () => {
                     Update
                   </Button>
                 </div>
+                {user.isAdmin ? (
+                  <div className="text-center mt-3 myBtn">
+                    <Button
+                      style={{ width: "100%", backgroundColor: "green" }}
+                      onClick={handlePost}
+                    >
+                      Create Post
+                    </Button>
+                  </div>
+                ) : null}
               </Form>
             )}
           </Formik>

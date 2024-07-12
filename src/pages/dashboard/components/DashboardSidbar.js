@@ -9,17 +9,45 @@ import {
   FaUsers,
 } from "react-icons/fa"; // Import the icons
 import { Link } from "react-router-dom";
+import {
+  GET_COMMENTS_DASHBOARD_URL,
+  GET_POSTS_DASHBOARD_URL,
+  GET_USERS_DASHBOARD_URL,
+} from "../../../URLS";
+import { apiCall } from "../../../apiCall";
+import { useDispatch } from "react-redux";
+import { commentAction } from "../../../store/commentSlice";
+import { userAction } from "../../../store/userSlice";
+import { postAction } from "../../../store/postSlice";
+import { actionMapping } from "../../../consts";
 
 const DashboardSidebar = (props) => {
+  const dispatch = useDispatch();
   const { user } = props;
+  const updateRedux = (data, slice) => {
+    const action = actionMapping[slice];
+    dispatch(action(data.data));
+  };
+  const handleClick = async (params) => {
+    console.log(params);
+    try {
+      const data = await apiCall(params.method, params.url);
+      if (data.status === "ok") {
+        updateRedux(data, params.slice);
+      }
+    } catch (error) {}
+  };
   return (
     <div>
       <Sidebar className="sidebar-container">
         <Menu>
-          {user.type === "admin" && (
+          {user.isAdmin === true && (
             <MenuItem
               component={<Link to="/dashboard?tab=dash" />}
               icon={<FaTachometerAlt />}
+              onClick={() => {
+                handleClick({});
+              }}
             >
               {" "}
               Dashboard{" "}
@@ -33,11 +61,18 @@ const DashboardSidebar = (props) => {
             {" "}
             Profile{" "}
           </MenuItem>
-          {user.type === "admin" && (
+          {user.isAdmin === true && (
             <div>
               <MenuItem
                 component={<Link to="/dashboard?tab=posts" />}
                 icon={<FaClipboard />}
+                onClick={() => {
+                  handleClick({
+                    url: GET_POSTS_DASHBOARD_URL,
+                    method: "GET",
+                    slice: "posts",
+                  });
+                }}
               >
                 {" "}
                 Posts{" "}
@@ -45,11 +80,25 @@ const DashboardSidebar = (props) => {
               <MenuItem
                 component={<Link to="/dashboard?tab=comments" />}
                 icon={<FaComments />}
+                onClick={() => {
+                  handleClick({
+                    url: GET_COMMENTS_DASHBOARD_URL,
+                    method: "GET",
+                    slice: "comments",
+                  });
+                }}
               >
                 {" "}
                 Comments{" "}
               </MenuItem>
               <MenuItem
+                onClick={() => {
+                  handleClick({
+                    url: GET_USERS_DASHBOARD_URL,
+                    method: "GET",
+                    slice: "users",
+                  });
+                }}
                 component={<Link to="/dashboard?tab=users" />}
                 icon={<FaUsers />}
               >

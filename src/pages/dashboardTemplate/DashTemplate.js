@@ -4,7 +4,7 @@ import "../comments/CommentsPage.css";
 import Comment from "../comments/components/Comment";
 import TemplateData from "./TemplateData";
 const DashTemplate = (props) => {
-  const { titles, data, fields } = props;
+  const { titles, data, fields, tabFromUrl } = props;
   return (
     <div className="main-comments">
       <div className="comments-div">
@@ -18,7 +18,12 @@ const DashTemplate = (props) => {
           })}
         </div>
         {data.map((value, index) => (
-          <TemplateData key={index} data={value} fields={fields} />
+          <TemplateData
+            key={index}
+            data={value}
+            fields={fields}
+            tabFromUrl={tabFromUrl}
+          />
         ))}
       </div>
     </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { FaUser, FaComments, FaClipboard } from "react-icons/fa";
 
 const TotalInfo = (props) => {
-  const { title } = props;
+  const { title, data } = props;
   const getIcon = (title) => {
     switch (title) {
       case "Total Users":
@@ -19,7 +19,7 @@ const TotalInfo = (props) => {
     <div className="total-info">
       <div className="info-text">
         <div className="info-title">{title}</div>
-        <div className="info-number">1234</div> {/* Dummy number */}
+        <div className="info-number">{data.length}</div> {/* Dummy number */}
       </div>
       <div className="info-icon">{getIcon(title)}</div>
     </div>
