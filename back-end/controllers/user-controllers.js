@@ -113,6 +113,20 @@ const getUsers = async (req, res, next) => {
     return next(err);
   }
 };
+const signout = (req, res) => {
+  res.clearCookie("Auth_Cookie");
+  res.json({ status: "ok" });
+};
+const getUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user?.id).select("-password");
+    return res.json({ status: "ok", data: user });
+  } catch (error) {
+    console.log(error);
+    let err = new MyError("Internal Error", 500);
+    return next(err);
+  }
+};
 const deleteUser = async (req, res, next) => {
   try {
     console.log("deleteUser");
@@ -134,4 +148,6 @@ module.exports = {
   updateUser,
   getUsers,
   deleteUser,
+  getUser,
+  signout,
 };

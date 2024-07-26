@@ -14,8 +14,25 @@ import ProfilePage from "./pages/profile/ProfilePage";
 import CommentsPage from "./pages/comments/CommentsPage";
 import CreatePost from "./pages/createPost/CreatePost";
 import PostPage from "./pages/postPage/PostPage";
+import { useEffect } from "react";
+import { apiCall } from "./apiCall";
+import { GET_USER_URL } from "./URLS";
+import { useDispatch } from "react-redux";
+import { userAction } from "./store/userSlice";
 
 function App() {
+  const dispatch = useDispatch();
+
+  const getUser = async () => {
+    const data = await apiCall("GET", GET_USER_URL);
+    console.log(data);
+    if (data.status === "ok") {
+      dispatch(userAction.setUser(data.data));
+    }
+  };
+  useEffect(() => {
+    getUser();
+  }, []);
   return (
     <div className="App">
       <NavigationBar />

@@ -5,7 +5,7 @@ export const apiCall = async (method, url, payload) => {
     switch (method) {
       case "GET":
         console.log(url, payload);
-        response = await fetch(url, {});
+        response = await fetch(url, { method: "GET", credentials: "include" });
         break;
       case "POST":
         console.log(url, payload, method);
@@ -40,6 +40,9 @@ export const apiCall = async (method, url, payload) => {
           credentials: "include",
           body: formData,
         });
+        // Expected output: "Mangoes and papayas are $2.79 a pound."
+        break;
+      case "MULTY":
         // Expected output: "Mangoes and papayas are $2.79 a pound."
         break;
       default:

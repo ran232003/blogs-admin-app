@@ -6,9 +6,12 @@ const {
   getPosts,
   deletePost,
   createPost,
+  getPostsSearch,
 } = require("../controllers/post-controller");
 const router = express.Router();
 router.get("/getPostsDashboard", getPosts);
+router.get("/getPostsSearch", getPostsSearch);
+
 router.delete("/deletePost/:id", deletePost);
 router.post("/createPost", verifyToken, upload.single("file"), createPost);
 

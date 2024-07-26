@@ -23,3 +23,77 @@
   margin-top: 40px;
   width: 50%;
 }
+/* AddComment.css */
+.add-comment-container {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ced4da;
+  border-radius: 10px;
+  width: 50%;
+}
+
+.add-comment-container .button-container {
+  text-align: right;
+  margin-top: 10px;
+}
+.commentList {
+  width: 50%;
+}
+.card {
+  border: none;
+  border-radius: 0px;
+}
+.comment-item {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+  margin-top: 50px;
+  /* padding: 10px; */
+}
+.comment-header {
+  display: flex;
+  align-items: center;
+}
+
+.user-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: bold;
+}
+
+.comment-date {
+  font-size: 0.8em;
+  color: #666;
+}
+
+.comment-content {
+  margin-top: 10px;
+}
+.comment-actions {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.like-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.liked {
+  color: blue;
+}
+
+.like-count {
+  margin-left: 5px;
+}

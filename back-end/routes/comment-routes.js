@@ -5,9 +5,16 @@ const upload = require("../middleware/uploadFile");
 const {
   getComments,
   deleteComment,
+  getPostComments,
+  addPostComment,
+  addRemoveLike,
 } = require("../controllers/comment-controller");
 const router = express.Router();
 router.get("/getCommentsDashboard", getComments);
+router.get("/getPostComments/:id", getPostComments);
+router.post("/addPostComment", verifyToken, addPostComment);
+router.post("/addRemoveLike", verifyToken, addRemoveLike);
+
 router.delete("/deleteComment/:id", deleteComment);
 
 module.exports = router;

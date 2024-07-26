@@ -23,10 +23,20 @@ import { useLocation } from "react-router-dom";
 import DashboardUserPage from "../dashUsersPage/DashboardUserPage";
 import DashTemplate from "../dashboardTemplate/DashTemplate";
 import ProfilePage from "../profile/ProfilePage";
-import { useSelector } from "react-redux";
-import { GET_COMMENTS_DASHBOARD_URL } from "../../URLS";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  GET_COMMENTS_DASHBOARD_URL,
+  GET_POSTS_DASHBOARD_URL,
+  GET_USERS_DASHBOARD_URL,
+} from "../../URLS";
+import { apiCall } from "../../apiCall";
+import { postAction } from "../../store/postSlice";
+import { commentAction } from "../../store/commentSlice";
+import { userAction } from "../../store/userSlice";
 
 const DashBoard = () => {
+  const dispatch = useDispatch();
+
   const location = useLocation();
   const [tab, setTab] = useState("");
   const user = useSelector((state) => {
@@ -50,7 +60,25 @@ const DashBoard = () => {
       setTab(""); // default to empty string if no tab is specified
     }
   }, [location.search]);
-  console.log(tab);
+  const getData = async () => {
+    const [postsResponse, commentsResponse, usersResponse] = await Promise.all([
+      apiCall("GET", GET_POSTS_DASHBOARD_URL),
+      apiCall("GET", GET_COMMENTS_DASHBOARD_URL),
+      apiCall("GET", GET_USERS_DASHBOARD_URL),
+    ]);
+    if (
+      postsResponse.status === "ok" &&
+      commentsResponse.status === "ok" &&
+      usersResponse.status === "ok"
+    ) {
+      dispatch(postAction.setDashBoardPosts(postsResponse.data));
+      dispatch(commentAction.setDashBoardComments(commentsResponse.data));
+      dispatch(userAction.setUsers(usersResponse.data));
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <div className="main-dash">
       <DashboardSidebar user={user} />

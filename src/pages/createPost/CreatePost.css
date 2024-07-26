@@ -29,3 +29,14 @@
   margin-top: 50px;
   width: 100%;
 }
+.centered-image {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.centered-image img {
+  width: 20%;
+  height: auto;
+}

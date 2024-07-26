@@ -12,15 +12,20 @@ import profilePic from "./profile.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userAction } from "../store/userSlice";
+import { apiCall } from "../apiCall";
+import { SIGN_OUT } from "../URLS";
 const NavigationBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => {
     return state.user.user;
   });
-  const handleSignOut = () => {
-    dispatch(userAction.removeUser());
-    navigate("/auth/signin");
+  const handleSignOut = async () => {
+    const data = await apiCall("POST", SIGN_OUT, {});
+    if (data.status === "ok") {
+      dispatch(userAction.removeUser());
+      navigate("/auth/signin");
+    }
   };
   return (
     <Navbar expand="lg" className="bg-body-tertiary my-nav">

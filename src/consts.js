@@ -18,7 +18,7 @@ export const formikValuesSingIn = [
   { name: "email", lable: "Email", type: "text" },
   { name: "password", lable: "Password", type: "password" },
 ];
-export const optionsCategory = ["java", "javaScript", "C", "C++"];
+export const optionsCategory = ["", "java", "javaScript", "C", "C++", "React"];
 export const optionsSort = ["Latest", "Oldest"];
 
 export const recentUsers = [

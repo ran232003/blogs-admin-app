@@ -12,6 +12,45 @@ const getPosts = async (req, res, next) => {
     return next(err);
   }
 };
+const getPostsSearch = async (req, res, next) => {
+  try {
+    console.log("getPostsSearch");
+    const { search, sort, category } = req.query;
+    const query = {};
+
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { content: { $regex: search, $options: "i" } },
+      ];
+    }
+
+    if (category) {
+      query.category = category;
+    }
+
+    // Build the sort object
+    const sortOptions = {};
+    if (sort === "Latest") {
+      sortOptions.createdAt = -1; // Sort by date descending
+    } else if (sort === "Oldest") {
+      sortOptions.createdAt = 1; // Sort by title ascending
+    }
+
+    // Query the database
+    const posts = await Post.find(query).sort(sortOptions);
+
+    // Send the response
+    res.json({
+      status: "ok",
+      data: posts,
+    });
+  } catch (error) {
+    console.log(error);
+    let err = new MyError("Internal Error", 500);
+    return next(err);
+  }
+};
 const deletePost = async (req, res, next) => {
   try {
     console.log("deletePost");
@@ -50,4 +89,5 @@ module.exports = {
   getPosts,
   deletePost,
   createPost,
+  getPostsSearch,
 };

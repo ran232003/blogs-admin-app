@@ -4,14 +4,12 @@ import { optionsCategory, optionsSort } from "../../../consts";
 import MyInput from "./MyInput";
 import { Button } from "react-bootstrap";
 
-const SideBarSearch = () => {
-  const [inputs, setInputs] = useState({
-    search: "",
-    sort: "",
-    category: "",
-  });
+const SideBarSearch = (props) => {
+  const { getBlogs, inputs, setInputs } = props;
+
   const handleSubmit = () => {
     console.log("Form submitted with values:", inputs);
+    getBlogs();
     // Add your form submission logic here
   };
   const handleInput = (value, field) => {
@@ -39,7 +37,7 @@ const SideBarSearch = () => {
 
         <MyDropDown
           options={optionsCategory}
-          vlaueInput={inputs.sort}
+          vlaueInput={inputs.category}
           handleInput={handleInput}
           field="category"
           label="Category"

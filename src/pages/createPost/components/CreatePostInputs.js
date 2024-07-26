@@ -7,15 +7,20 @@ import { CREATE_POST_URL } from "../../../URLS";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { postAction } from "../../../store/postSlice";
-const CreatePostInputs = () => {
-  const [file, setFile] = useState(null);
-  const [title, setTitle] = useState("");
+const CreatePostInputs = (props) => {
+  const { post } = props;
+  const [file, setFile] = useState(post?.image || null);
+  const [title, setTitle] = useState(post?.title || "");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [value, setValue] = useState("");
-  const [category, setCategory] = useState("");
+  const [value, setValue] = useState(post?.content || "");
+  const [category, setCategory] = useState(post?.category || "");
+  const [preview, setPreview] = useState(post?.image || null);
+
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    const file = e.target.files[0];
+    setFile(file);
+    setPreview(URL.createObjectURL(file));
   };
   const handleSubmit = async () => {
     console.log(file, "value   ", value, "category   ", category);
@@ -59,6 +64,11 @@ const CreatePostInputs = () => {
         <Form.Group className="mb-3 file-input" controlId="formFile">
           <Form.Control type="file" onChange={handleFileChange} />
         </Form.Group>
+        {preview && (
+          <div className="centered-image">
+            <img src={preview} alt="Preview" />
+          </div>
+        )}
         <ReactQuill
           className="textBox"
           theme="snow"

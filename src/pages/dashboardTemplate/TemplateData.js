@@ -40,6 +40,7 @@ const TemplateData = (props) => {
   const handleEdit = (event) => {
     console.log("edit");
     event.stopPropagation();
+    navigate(`/create-post`, { state: { data: data } });
   };
   const handleDelete = async (obj) => {
     console.log(obj, "DELETE");
