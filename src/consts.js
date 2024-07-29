@@ -165,3 +165,14 @@ export const actionMapping = {
   //posts: postAction.setDashBoardposts,
   // Add other slices and their corresponding actions here
 };
+export const globalActionMapping = {
+  setDashBoardComments: commentAction.setDashBoardComments,
+  setPostComments: commentAction.setPostComments,
+  setUsers: userAction.setUsers,
+  setUser: userAction.setUser,
+  removeUser: userAction.removeUser,
+  setDashBoardPosts: postAction.setDashBoardPosts,
+  setPostSearch: postAction.setPostSearch,
+  //posts: postAction.setDashBoardposts,
+  // Add other slices and their corresponding actions here
+};

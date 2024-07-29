@@ -3,9 +3,12 @@ import { Button, Card } from "react-bootstrap";
 import { FaThumbsUp, FaRegThumbsUp } from "react-icons/fa";
 import { apiCall } from "../../../apiCall";
 import { ADD_REMOVE_LIKE } from "../../../URLS";
+import { useApiHelper } from "../../../global/apiHelper";
 
 const CommentItem = ({ content, createdAt, likes, userId, commentId }) => {
   const [likeCount, setLikeCount] = useState(likes.length);
+  const { handleApiCall } = useApiHelper();
+
   const checkIsLiked = likes.find((id) => {
     console.log(id, userId?._id);
     return id === userId?._id;
@@ -14,10 +17,30 @@ const CommentItem = ({ content, createdAt, likes, userId, commentId }) => {
   const [isLiked, setIsLiked] = useState(!!checkIsLiked);
 
   const handleLikeClick = async () => {
-    const data = await apiCall("POST", ADD_REMOVE_LIKE, {
-      like: !isLiked,
-      commentId: commentId,
-    });
+    handleApiCall(
+      "POST",
+      ADD_REMOVE_LIKE,
+      {
+        like: !isLiked,
+        commentId: commentId,
+      },
+      HandleLike,
+      HandleFail
+    );
+    // const data = await apiCall("POST", ADD_REMOVE_LIKE, {
+    //   like: !isLiked,
+    //   commentId: commentId,
+    // });
+    // if (data.status === "ok") {
+    //   if (isLiked) {
+    //     setLikeCount(likeCount - 1);
+    //   } else {
+    //     setLikeCount(likeCount + 1);
+    //   }
+    //   setIsLiked(!isLiked);
+    // }
+  };
+  const HandleLike = (data) => {
     if (data.status === "ok") {
       if (isLiked) {
         setLikeCount(likeCount - 1);
@@ -26,6 +49,9 @@ const CommentItem = ({ content, createdAt, likes, userId, commentId }) => {
       }
       setIsLiked(!isLiked);
     }
+  };
+  const HandleFail = (data) => {
+    console.log(data.msg);
   };
   return (
     <Card className="comment-item">

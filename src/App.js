@@ -19,6 +19,7 @@ import { apiCall } from "./apiCall";
 import { GET_USER_URL } from "./URLS";
 import { useDispatch } from "react-redux";
 import { userAction } from "./store/userSlice";
+import Loading from "./global/LoadingSpinners";
 
 function App() {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastMessage />
+      <Loading />
     </div>
   );
 }

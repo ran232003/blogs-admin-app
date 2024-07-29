@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userAction } from "../store/userSlice";
 import { apiCall } from "../apiCall";
 import { SIGN_OUT } from "../URLS";
+import { loadingAction } from "../store/loadingData";
 const NavigationBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,11 +22,15 @@ const NavigationBar = () => {
     return state.user.user;
   });
   const handleSignOut = async () => {
+    dispatch(loadingAction.toggleLoading(true));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     const data = await apiCall("POST", SIGN_OUT, {});
     if (data.status === "ok") {
       dispatch(userAction.removeUser());
       navigate("/auth/signin");
     }
+    dispatch(loadingAction.toggleLoading(false));
   };
   return (
     <Navbar expand="lg" className="bg-body-tertiary my-nav">

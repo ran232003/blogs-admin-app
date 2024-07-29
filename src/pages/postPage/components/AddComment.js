@@ -3,10 +3,12 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { apiCall } from "../../../apiCall";
 import { ADD_POST_COMMENT } from "../../../URLS";
+import { useApiHelper } from "../../../global/apiHelper";
 
 const AddComment = (props) => {
   const { getPostComments, postData } = props;
   const [comment, setComment] = useState("");
+  const { handleApiCall } = useApiHelper();
 
   const handleCommentChange = (e) => {
     setComment(e.target.value);
@@ -19,14 +21,27 @@ const AddComment = (props) => {
     }
     // Add your form submission logic here
     console.log("Comment submitted:", comment);
-    try {
-      const data = await apiCall("POST", ADD_POST_COMMENT, {
+    handleApiCall(
+      "POST",
+      ADD_POST_COMMENT,
+      {
         comment: comment,
         postId: postData._id,
-      });
-      getPostComments();
-    } catch (error) {}
-    setComment("");
+      },
+      () => {
+        setComment("");
+        getPostComments();
+      },
+      () => {}
+    );
+    // try {
+    //   const data = await apiCall("POST", ADD_POST_COMMENT, {
+    //     comment: comment,
+    //     postId: postData._id,
+    //   });
+    //   getPostComments();
+    // } catch (error) {}
+    // setComment("");
   };
 
   return (

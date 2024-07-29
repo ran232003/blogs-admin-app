@@ -8,9 +8,13 @@ import { useSelector } from "react-redux";
 import { apiCall } from "../../apiCall";
 import { GET_POST_COMMENTS } from "../../URLS";
 import CommentList from "./components/CommentList";
+import { useApiHelper } from "../../global/apiHelper";
+import { globalActionMapping } from "../../consts";
 const PostPage = () => {
   const [comments, setComments] = useState([]);
   const location = useLocation();
+  const { handleApiCall } = useApiHelper();
+
   const postData = location.state.data;
   const user = useSelector((state) => {
     return state.user.user;
@@ -20,14 +24,23 @@ const PostPage = () => {
   //   });
   console.log(postData);
   const getPostComments = async () => {
-    try {
-      let url = GET_POST_COMMENTS + postData._id;
-      const data = await apiCall("GET", url);
-      if (data.status === "ok") {
-        console.log(data);
+    let url = GET_POST_COMMENTS + postData._id;
+    handleApiCall(
+      "GET",
+      url,
+      {},
+      (data) => {
         setComments(data.data);
-      }
-    } catch (error) {}
+      },
+      () => {}
+    );
+    // try {
+    //   const data = await apiCall("GET", url);
+    //   if (data.status === "ok") {
+    //     console.log(data);
+    //     setComments(data.data);
+    //   }
+    // } catch (error) {}
   };
   useEffect(() => {
     getPostComments();
