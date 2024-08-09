@@ -97,3 +97,25 @@
 .like-count {
   margin-left: 5px;
 }
+.deleteComment {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.editComment {
+  margin-left: 10px;
+  cursor: pointer;
+}
+:hover.editComment {
+  color: #057c05;
+  transition: all 0.5s ease;
+}
+:hover.deleteComment {
+  color: red;
+  transition: all 0.5s ease;
+}
+.edit-actions {
+  margin-top: 20px;
+}
+.btn-edit {
+  margin-left: 20px;
+}

@@ -86,10 +86,26 @@ const addPostComment = async (req, res, next) => {
     return next(err);
   }
 };
+const editComment = async (req, res, next) => {
+  try {
+    console.log("editComment", req.user);
+    const { commentId, content, postId } = req.body;
+    console.log(commentId, content, postId);
+    await Comment.updateOne({ _id: commentId }, { $set: { content: content } });
+    const comments = await Comment.find({ postId: postId });
+
+    return res.json({ status: "ok", data: comments });
+  } catch (error) {
+    console.log(error);
+    let err = new MyError("Internal Error", 500);
+    return next(err);
+  }
+};
 module.exports = {
   getComments,
   deleteComment,
   getPostComments,
   addPostComment,
   addRemoveLike,
+  editComment,
 };

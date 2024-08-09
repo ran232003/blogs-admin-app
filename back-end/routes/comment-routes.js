@@ -8,12 +8,14 @@ const {
   getPostComments,
   addPostComment,
   addRemoveLike,
+  editComment,
 } = require("../controllers/comment-controller");
 const router = express.Router();
 router.get("/getCommentsDashboard", getComments);
 router.get("/getPostComments/:id", getPostComments);
 router.post("/addPostComment", verifyToken, addPostComment);
 router.post("/addRemoveLike", verifyToken, addRemoveLike);
+router.post("/editComment", verifyToken, editComment);
 
 router.delete("/deleteComment/:id", deleteComment);
 

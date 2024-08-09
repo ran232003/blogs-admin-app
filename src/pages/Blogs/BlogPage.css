@@ -126,3 +126,9 @@
     width: 50%; /* Increased from 25% to 30% */
   }
 }
+.homePage-css {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}

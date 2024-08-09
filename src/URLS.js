@@ -26,3 +26,5 @@ export const ADD_POST_COMMENT =
   "http://localhost:5000/api/blog/comments/addPostComment";
 export const ADD_REMOVE_LIKE =
   "http://localhost:5000/api/blog/comments/addRemoveLike";
+export const UPDATE_COMMENT =
+  "http://localhost:5000/api/blog/comments/editComment";

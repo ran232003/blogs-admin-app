@@ -69,7 +69,12 @@ const PostPage = () => {
         getPostComments={getPostComments}
         user={user}
       />
-      <CommentList comments={comments} />
+      <CommentList
+        comments={comments}
+        user={user}
+        postId={postData._id}
+        getPostComments={getPostComments}
+      />
     </div>
   );
 };

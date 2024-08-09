@@ -15,7 +15,7 @@ const getPosts = async (req, res, next) => {
 const getPostsSearch = async (req, res, next) => {
   try {
     console.log("getPostsSearch");
-    const { search, sort, category } = req.query;
+    const { search, sort, category, limit } = req.query;
     const query = {};
 
     if (search) {
@@ -36,9 +36,11 @@ const getPostsSearch = async (req, res, next) => {
     } else if (sort === "Oldest") {
       sortOptions.createdAt = 1; // Sort by title ascending
     }
-
+    if (limit) {
+      const queryLimit = limit ? parseInt(limit, 10) : 10;
+    }
     // Query the database
-    const posts = await Post.find(query).sort(sortOptions);
+    const posts = await Post.find(query).sort(sortOptions).limit(limit);
 
     // Send the response
     res.json({

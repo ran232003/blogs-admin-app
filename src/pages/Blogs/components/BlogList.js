@@ -2,11 +2,11 @@ import React from "react";
 import BlogItem from "./BlogItem";
 
 const BlogList = (props) => {
-  const { dashBoardPosts } = props;
+  const { dashBoardPosts, mainCss } = props;
   console.log(dashBoardPosts);
   if (dashBoardPosts) {
     return (
-      <div className="post-list">
+      <div className={mainCss ? mainCss : "post-list"}>
         {dashBoardPosts.map((post, index) => {
           return <BlogItem key={index} post={post} />;
         })}

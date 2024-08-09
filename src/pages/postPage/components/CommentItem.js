@@ -1,19 +1,51 @@
 import React, { useState } from "react";
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, Form } from "react-bootstrap";
 import { FaThumbsUp, FaRegThumbsUp } from "react-icons/fa";
 import { apiCall } from "../../../apiCall";
-import { ADD_REMOVE_LIKE } from "../../../URLS";
+import { ADD_REMOVE_LIKE, UPDATE_COMMENT } from "../../../URLS";
 import { useApiHelper } from "../../../global/apiHelper";
 
-const CommentItem = ({ content, createdAt, likes, userId, commentId }) => {
+const CommentItem = ({
+  content,
+  createdAt,
+  likes,
+  userId,
+  commentId,
+  user,
+  postId,
+  getPostComments,
+}) => {
   const [likeCount, setLikeCount] = useState(likes.length);
   const { handleApiCall } = useApiHelper();
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedContent, setEditedContent] = useState(content);
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
 
+  const handleCancelClick = () => {
+    setIsEditing(false);
+    setEditedContent(content); // Reset to original content if canceled
+  };
+  const handleSaveClick = async () => {
+    handleApiCall(
+      "POST",
+      UPDATE_COMMENT,
+      {
+        commentId: commentId,
+        content: editedContent,
+        postId: postId,
+      },
+      () => {
+        getPostComments();
+        setIsEditing(false);
+      },
+      HandleFail
+    );
+  };
   const checkIsLiked = likes.find((id) => {
-    console.log(id, userId?._id);
     return id === userId?._id;
   });
-  console.log(checkIsLiked, userId);
   const [isLiked, setIsLiked] = useState(!!checkIsLiked);
 
   const handleLikeClick = async () => {
@@ -65,7 +97,30 @@ const CommentItem = ({ content, createdAt, likes, userId, commentId }) => {
             </span>
           </div>
         </div>
-        <div className="comment-content">{content}</div>
+        {isEditing ? (
+          <div>
+            <Form.Control
+              as="textarea"
+              rows={3}
+              value={editedContent}
+              onChange={(e) => setEditedContent(e.target.value)}
+            />
+            <div className="edit-actions">
+              <Button variant="primary" onClick={handleSaveClick}>
+                Save
+              </Button>
+              <Button
+                className="btn-edit"
+                variant="secondary"
+                onClick={handleCancelClick}
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div className="comment-content">{content}</div>
+        )}
         <div className="comment-actions">
           <Button
             variant="outline-primary"
@@ -75,6 +130,14 @@ const CommentItem = ({ content, createdAt, likes, userId, commentId }) => {
             {isLiked ? <FaThumbsUp /> : <FaRegThumbsUp />}
           </Button>
           <span className="like-count">{likeCount}</span>
+          {userId._id === user?._id && !isEditing ? (
+            <div>
+              <span className="editComment" onClick={handleEditClick}>
+                Edit
+              </span>
+              <span className="deleteComment">Delete</span>
+            </div>
+          ) : null}
         </div>
       </Card.Body>
     </Card>
